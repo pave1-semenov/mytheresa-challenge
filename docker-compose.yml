@@ -9,6 +9,9 @@ services:
     environment:
       POSTGRES_USER: ${DB_USER:-challenger}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-changeMe}
+    depends_on:
+      - database
+      - nginx
   nginx:
     build:
       context: ./docker/nginx
