@@ -11,7 +11,6 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-changeMe}
     depends_on:
       - database
-      - nginx
   nginx:
     build:
       context: ./docker/nginx
@@ -19,6 +18,8 @@ services:
       - code:/app/
     ports:
       - '80:80'
+    depends_on:
+      - app
   database:
     image: postgres:${POSTGRES_VERSION:-13}-alpine
     environment:
