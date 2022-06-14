@@ -12,7 +12,7 @@ PHPUNIT  = $(APP_CONT) bin/phpunit
 
 # Misc
 .DEFAULT_GOAL = help
-.PHONY        = help build up start down clear logs sh sf cc import bootstrap
+.PHONY        = help build up start down clear logs sh sf cc import migrations bootstrap
 
 # Import defaults
 BATCH_SIZE = 500 # defaults
@@ -55,10 +55,12 @@ cc: c=c:c ## Clear the cache
 cc: sf
 
 ## —— App 💾 ———————————————————————————————————————————————————————————————————
+migrations: c=doctrine:migrations:migrate --no-interaction ## Run the database migrations
+migrations: sf
 
-import: c=app:import -vvv $(IMPORT_FLAGS) ## Start data import from default files
-import: sf
+import: ## Start data import from default files
+	@$(SYMFONY) app:import -vvv $(IMPORT_FLAGS)
 
-bootstrap: start import ## Starts the application and imports default data. Use -e FILE_PATH=/path/to/products.json, -e DISCOUNTS_FILE_PATH=/path/to/discounts.json, -e BATCH_SIZE=1000 to override the defaults
+bootstrap: start migrations import ## Starts the application and imports default data. Use -e FILE_PATH=/path/to/products.json, -e DISCOUNTS_FILE_PATH=/path/to/discounts.json, -e BATCH_SIZE=1000 to override the defaults
 test: ## Runs unit tests
 	@$(PHPUNIT)
