@@ -10,7 +10,7 @@ use Mytheresa\Challenge\DTO\ProductListDTO;
 use Mytheresa\Challenge\Utils\LoggerTrait;
 
 /**
- * Domain Service which encapsulates all data import logic
+ * This service encapsulates all data import logic
  */
 class ProductImportService
 {

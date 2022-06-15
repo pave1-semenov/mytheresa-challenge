@@ -21,7 +21,7 @@ class DataMapper
     {
     }
 
-    public function loadCategories(ProductListDTO $productsList, ?DiscountListDTO $discountsList): ImportDTO
+    public function loadCategories(ProductListDTO $productsList, DiscountListDTO $discountsList): ImportDTO
     {
         $skuList = $names = [];
         foreach ($productsList->getProducts() as $item) {
@@ -30,14 +30,14 @@ class DataMapper
         }
         /**
          * Here we load all the categories present in file from database.
-         * Assuming that there would be not much of them
+         * Assuming that there would be not much of them, so we can safely load everything
          */
         $categories = $this->categoryRepository->getMappedByName(array_keys($names));
         /**
          * We map discounts once to reuse it in further steps.
          * Assuming that category names and product SKU won't intersect
          */
-        $discounts = $discountsList ? $this->mapDiscounts($discountsList) : [];
+        $discounts = $this->mapDiscounts($discountsList);
         /**
          * We extract the category names not currently present in database
          */

@@ -1,0 +1,11 @@
+nelmio_api_doc:
+    documentation:
+        servers:
+            - url: 'http://%env(NGINX_HOST)%:%env(NGINX_PORT)%'
+        info:
+            title: Mytheresa Challenge
+            description: Mytheresa Challenge
+            version: 1.0.0
+    areas: # to filter documented areas
+        path_patterns:
+            - ^/products

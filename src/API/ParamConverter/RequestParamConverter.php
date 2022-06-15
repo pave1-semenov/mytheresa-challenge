@@ -29,11 +29,12 @@ class RequestParamConverter implements ParamConverterInterface
 
     /**
      * @throws BadRequestHttpException|UnprocessableEntityHttpException
+     * @return bool
      */
-    public function apply(Request $request, ParamConverter $configuration)
+    public function apply(Request $request, ParamConverter $configuration): bool
     {
         try {
-            /** supported() should have been called before this method, so we're absolutely sure that
+            /** supported() should've been called before this method, so we're absolutely sure that
              * target class contains the needed attribute
              *
              * @var RequestData $attribute
@@ -49,7 +50,7 @@ class RequestParamConverter implements ParamConverterInterface
             ]);
             if ($attribute->shouldValidate()) {
                 $violations = $this->validator->validate($requestModel);
-                if (\count($violations) > 0) {
+                if ($violations->count() > 0) {
                     /**
                      * This exception could be replaced by some custom one to expose information
                      * About violations
@@ -68,6 +69,7 @@ class RequestParamConverter implements ParamConverterInterface
             throw new BadRequestHttpException($e->getMessage());
         }
 
+        return true;
     }
 
     /**

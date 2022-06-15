@@ -8,7 +8,7 @@ use Mytheresa\Challenge\Persistence\Entity\Product;
 use Mytheresa\Challenge\Service\ProductPriceCalculator;
 
 /**
- * This factory encapsulates logic of transforming data received from Domain Service
+ * This factory encapsulates logic of transforming Product entities
  * Into response class of appropriate format
  */
 class ProductResponseFactory

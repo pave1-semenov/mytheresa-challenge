@@ -1,5 +1,5 @@
 server {
-    listen 80;
+    listen ${NGINX_PORT};
     index index.php;
     server_name ${NGINX_HOST};
     root /app/public;

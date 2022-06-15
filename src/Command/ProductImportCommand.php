@@ -39,21 +39,21 @@ class ProductImportCommand extends Command
             'file',
             'f',
             InputOption::VALUE_REQUIRED,
-            'Absolute path to file to process',
+            'Absolute path to file to process. Can also be a web link',
             "{$this->resourcesDir}/products.json"
         );
         $this->addOption(
             'discounts_file',
             'df',
             InputOption::VALUE_REQUIRED,
-            'Absolute path to file with discounts data',
+            'Absolute path to file with discounts data. Can also be a web link',
             "{$this->resourcesDir}/discounts.json"
         );
         $this->addOption(
             'batch_size',
             'bs',
             InputOption::VALUE_OPTIONAL,
-            'Maximum number of database operations to process at once',
+            'Maximum number of database operations to process in one transaction',
             500
         );
         $this->addUsage('Imports products data from specified file to underlying database');

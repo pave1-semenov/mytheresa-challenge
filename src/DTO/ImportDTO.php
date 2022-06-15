@@ -59,6 +59,11 @@ class ImportDTO
         return $this->discounts[$key] ?? null;
     }
 
+    public function getDiscounts(): array
+    {
+        return $this->discounts;
+    }
+
     public function setProducts(iterable $products): ImportDTO
     {
         $this->products = $products;

@@ -18,7 +18,7 @@ class ProductDiffProcessor
 {
     public function __construct(
         private readonly CategoryFactory        $categoryFactory,
-        private readonly ProductFactory         $factory,
+        private readonly ProductFactory         $productFactory,
         private readonly EntityManagerInterface $em
     )
     {
@@ -78,7 +78,7 @@ class ProductDiffProcessor
              * We're using references so we can save products
              */
             $ref = $this->em->getReference(Category::class, $category->getId());
-            $result = $this->factory->fill($product, $item, $ref, $productDiscount);
+            $result = $this->productFactory->fill($product, $item, $ref, $productDiscount);
         }
 
         return $result;
@@ -90,7 +90,7 @@ class ProductDiffProcessor
     public function createNewProducts(array $newProducts, ImportDTO $data): iterable
     {
         foreach ($newProducts as $item) {
-            $product = $this->factory->create($item);
+            $product = $this->productFactory->create($item);
             if ($entity = $this->fillProduct($data, $product, $item)) {
                 yield $entity;
             }

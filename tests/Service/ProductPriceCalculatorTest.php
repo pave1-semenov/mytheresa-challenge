@@ -16,7 +16,6 @@ class ProductPriceCalculatorTest extends TestCase
 
     private string $currency = 'EUR';
 
-    private DefaultCurrencyConfig|MockInterface $config;
     private ProductPriceCalculator $calculator;
 
     /**
@@ -51,7 +50,7 @@ class ProductPriceCalculatorTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->config = \Mockery::mock(DefaultCurrencyConfig::class, ['getCurrency' => $this->currency]);
-        $this->calculator = new ProductPriceCalculator($this->config);
+        $config = \Mockery::mock(DefaultCurrencyConfig::class, ['getCurrency' => $this->currency]);
+        $this->calculator = new ProductPriceCalculator($config);
     }
 }

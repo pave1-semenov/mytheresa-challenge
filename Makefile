@@ -12,7 +12,7 @@ PHPUNIT  = $(APP_CONT) bin/phpunit
 
 # Misc
 .DEFAULT_GOAL = help
-.PHONY        = help build up start down clear logs sh sf cc import migrations bootstrap
+.PHONY        = help build up start down clear sh sf cc import migrations bootstrap
 
 # Import defaults
 BATCH_SIZE = 500 # defaults
@@ -38,9 +38,6 @@ down: ## Stop the docker hub
 clean: ## Stop the docker hub, removing volumes
 	@$(DOCKER_COMP) down -v --remove-orphans
 
-logs: ## Show live logs
-	@$(DOCKER_COMP) logs --tail=0 -f
-
 sh: ## Connect to the PHP FPM container
 	@$(APP_CONT) sh
 
@@ -56,9 +53,9 @@ cc: sf
 migrations: c=doctrine:migrations:migrate --no-interaction ## Run the database migrations
 migrations: sf
 
-import: ## Start data import from default files
+import: ## Start data import from default files. Available parameters: FILE_PATH, DISCOUNTS_FILE_PATH, BATCH_SIZE
 	@$(SYMFONY) app:import -vvv --batch_size=$(BATCH_SIZE) --file=$(FILE_PATH) --discounts_file=$(DISCOUNTS_FILE_PATH)
 
-bootstrap: start migrations import ## Starts the application and imports default data. Available parameters: FILE_PATH, DISCOUNTS_FILE_PATH, BATCH_SIZE
+bootstrap: start migrations import ## Starts the application and imports default data
 test: ## Runs unit tests
 	@$(PHPUNIT)

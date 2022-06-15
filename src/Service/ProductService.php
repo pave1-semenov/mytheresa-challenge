@@ -7,7 +7,7 @@ use Mytheresa\Challenge\Persistence\Entity\Product;
 use Mytheresa\Challenge\Persistence\Repository\ProductRepository;
 
 /**
- * Domain service which encapsulates logic of retrieving the products from underlying datasource
+ * This service encapsulates logic of retrieving the products from underlying datasource
  */
 class ProductService
 {

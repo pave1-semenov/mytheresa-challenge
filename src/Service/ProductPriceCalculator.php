@@ -7,7 +7,7 @@ use Mytheresa\Challenge\DTO\ProductPriceDTO;
 use Mytheresa\Challenge\Persistence\Entity\Product;
 
 /**
- * This class encapsulates logic for calculating discounts.
+ * This class encapsulates logic for calculating price with discounts.
  * Here we use a separate configuration for default currency, so we can change it easily without any code changes
  */
 class ProductPriceCalculator
