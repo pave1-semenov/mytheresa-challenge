@@ -2,13 +2,15 @@
 
 namespace Mytheresa\Challenge\DTO;
 
+use Symfony\Component\Serializer\Annotation\SerializedName;
+
 class ProductPriceDTO
 {
     public function __construct(
-        private readonly int     $original,
-        private readonly int     $final,
-        private readonly ?string $discountPercentage,
-        private readonly string  $currency
+        private readonly int                                              $original,
+        private readonly int                                              $final,
+        #[SerializedName("discount_percentage")] private readonly ?string $discountPercentage,
+        private readonly string                                           $currency
     )
     {
     }
