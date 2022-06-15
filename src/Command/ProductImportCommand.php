@@ -39,14 +39,14 @@ class ProductImportCommand extends Command
             'file',
             'f',
             InputOption::VALUE_REQUIRED,
-            'Absolute path to file to process. Can also be a web link',
+            'Absolute path to file to process. Can also be a web URI',
             "{$this->resourcesDir}/products.json"
         );
         $this->addOption(
             'discounts_file',
             'df',
             InputOption::VALUE_REQUIRED,
-            'Absolute path to file with discounts data. Can also be a web link',
+            'Absolute path to file with discounts data. Can also be a web URI',
             "{$this->resourcesDir}/discounts.json"
         );
         $this->addOption(
