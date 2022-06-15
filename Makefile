@@ -12,7 +12,7 @@ PHPUNIT  = $(APP_CONT) bin/phpunit
 
 # Misc
 .DEFAULT_GOAL = help
-.PHONY        = help build up start down clear sh sf cc import migrations bootstrap
+.PHONY        = help build up start down clear sh sf cc import migrations bootstrap sleep
 
 # Import defaults
 BATCH_SIZE = 500 # defaults
@@ -25,7 +25,7 @@ help: ## Outputs this help screen
 
 ## —— Docker 🐳 ————————————————————————————————————————————————————————————————
 build: ## Builds the Docker images
-	@$(DOCKER_COMP) build --pull --no-cache
+	@$(DOCKER_COMP) build --pull
 
 up: ## Start the docker hub in detached mode (no logs)
 	@$(DOCKER_COMP) up -d
@@ -40,6 +40,9 @@ clean: ## Stop the docker hub, removing volumes
 
 sh: ## Connect to the PHP FPM container
 	@$(APP_CONT) sh
+
+sleep:
+	sleep 10
 
 ## —— Symfony 🎵 ———————————————————————————————————————————————————————————————
 sf: ## List all Symfony commands or pass the parameter "c=" to run a given command, example: make sf c=about
@@ -56,6 +59,6 @@ migrations: sf
 import: ## Start data import from default files. Available parameters: FILE_PATH, DISCOUNTS_FILE_PATH, BATCH_SIZE
 	@$(SYMFONY) app:import -vvv --batch_size=$(BATCH_SIZE) --file=$(FILE_PATH) --discounts_file=$(DISCOUNTS_FILE_PATH)
 
-bootstrap: start migrations import ## Starts the application and imports default data
+bootstrap: start sleep migrations import ## Starts the application and imports default data
 test: ## Runs unit tests
 	@$(PHPUNIT)

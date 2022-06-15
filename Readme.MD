@@ -51,7 +51,8 @@ Application can be configured via environment variables:
   * ```FILE_PATH``` - path to json file with products. File should be accessible from inside app container or be a web link;
   * ```DISCOUNTS_FILE_PATH``` - path to json file with discounts. File should be accessible from inside app container or be a web link;
   * ```BATCH_SIZE``` - Maximum number of database operations to process in one transaction.
-* ```make test``` - run unit tests.
+* ```make test``` - run unit tests;
+* ```make sleep``` - sleep 5 seconds.
 
 ## Tests
 * Run ```make test```

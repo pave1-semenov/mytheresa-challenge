@@ -5,7 +5,7 @@ namespace Mytheresa\Challenge\Command;
 use Mytheresa\Challenge\DTO\DiscountListDTO;
 use Mytheresa\Challenge\DTO\ProductListDTO;
 use Mytheresa\Challenge\Service\Import\ProductImportService;
-use Mytheresa\Challenge\Utils\JsonFileReader;
+use Mytheresa\Challenge\Utils\JsonResourceReader;
 use Mytheresa\Challenge\Utils\LoggerTrait;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -26,7 +26,7 @@ class ProductImportCommand extends Command
 
     public function __construct(
         private readonly string               $resourcesDir,
-        private readonly JsonFileReader       $reader,
+        private readonly JsonResourceReader   $reader,
         private readonly ProductImportService $service
     )
     {
