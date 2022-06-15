@@ -19,8 +19,6 @@ BATCH_SIZE = 500 # defaults
 FILE_PATH = ./resources/products.json
 DISCOUNTS_FILE_PATH = ./resources/discounts.json
 
-IMPORT_FLAGS = --batch_size=$(BATCH_SIZE) --file=$(FILE_PATH) --discounts_file=$(DISCOUNTS_FILE_PATH)
-
 ## —— 🎵 🐳 The Symfony-docker Makefile 🐳 🎵 ——————————————————————————————————
 help: ## Outputs this help screen
 	@grep -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
@@ -37,7 +35,7 @@ start: build up ## Build and start the containers
 down: ## Stop the docker hub
 	@$(DOCKER_COMP) down --remove-orphans
 
-clear: ## Stop the docker hub, removing volumes
+clean: ## Stop the docker hub, removing volumes
 	@$(DOCKER_COMP) down -v --remove-orphans
 
 logs: ## Show live logs
@@ -59,8 +57,8 @@ migrations: c=doctrine:migrations:migrate --no-interaction ## Run the database m
 migrations: sf
 
 import: ## Start data import from default files
-	@$(SYMFONY) app:import -vvv $(IMPORT_FLAGS)
+	@$(SYMFONY) app:import -vvv --batch_size=$(BATCH_SIZE) --file=$(FILE_PATH) --discounts_file=$(DISCOUNTS_FILE_PATH)
 
-bootstrap: start migrations import ## Starts the application and imports default data. Use -e FILE_PATH=/path/to/products.json, -e DISCOUNTS_FILE_PATH=/path/to/discounts.json, -e BATCH_SIZE=1000 to override the defaults
+bootstrap: start migrations import ## Starts the application and imports default data. Available parameters: FILE_PATH, DISCOUNTS_FILE_PATH, BATCH_SIZE
 test: ## Runs unit tests
 	@$(PHPUNIT)

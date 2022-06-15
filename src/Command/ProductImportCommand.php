@@ -69,8 +69,8 @@ class ProductImportCommand extends Command
         $data = $this->reader->read($filePath, ProductListDTO::class);
         $discountFilePath = $input->getOption('discounts_file');
         $discounts = $this->reader->read($discountFilePath, DiscountListDTO::class);
-        $this->logger->info("Import started, product file {$filePath}, discounts file {$discountFilePath}, batch size ${batchSize}");
         $batchSize = $input->getOption('batch_size');
+        $this->logger->info("Import started, product file {$filePath}, discounts file {$discountFilePath}, batch size ${batchSize}");
 
         $this->service->import($data, $discounts, $batchSize);
         $this->logger->info("Import finished");
